@@ -6,17 +6,8 @@ const TARGET_DIRECTORY_NAME = 'files-copy';
 
 const cleanOrCreateTargetDir = async () => {
   const dirPath = path.resolve(__dirname, TARGET_DIRECTORY_NAME);
-  const targetDir = await readdir(dirPath, {withFileTypes: true})
-    .then(files => {
-      const tasks = [];
-      for (const file of files) {
-        const filePath = path.resolve(__dirname, TARGET_DIRECTORY_NAME, file.name);
-        tasks.push(rm(filePath));
-      }
-      return Promise.all(tasks);
-    }, error => {
-      return mkdir(dirPath, {recursive: true});
-    });
+  await rm(dirPath, {force: true, recursive: true});
+  await mkdir(dirPath);
   return dirPath;
 };
 
