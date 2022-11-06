@@ -4,7 +4,7 @@ const path = require("path");
 const stream = fs.createWriteStream(path.resolve(__dirname, 'input.txt'));
 
 process.stdin.on('data', data => {
-  if (data === 'exit') {
+  if (data.toString().trim() === 'exit') {
     streamClose();
     return;
   }
