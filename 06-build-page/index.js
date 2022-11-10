@@ -32,7 +32,7 @@ const mergeStyles = async () => {
   for (const file of files) {
     if (file.name.indexOf('css') > 1) { //1 symbol as min filename and 1 symbol for dot
       const content = await getFileContent(path.resolve(SOURCE_DIRECTORY_STYLES_PATH, file.name));
-      const result = appendFile(path.resolve(TARGET_DIRECTORY_PATH, 'style.css'), content);
+      const result = appendFile(path.resolve(TARGET_DIRECTORY_PATH, 'style.css'), content + '\n');
     }
   }
 };
