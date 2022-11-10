@@ -2,8 +2,8 @@ const {readdir, appendFile, rm, mkdir} = require('fs/promises');
 const path = require('path');
 const fs = require("fs");
 
-const SOURCE_DIRECTORY_PATH = path.resolve(__dirname, 'styles');
-const TARGET_DIRECTORY_PATH = path.resolve(__dirname, 'project-dist');
+const SOURCE_DIRECTORY_PATH = path.resolve(__dirname, 'test-files/styles');
+const TARGET_DIRECTORY_PATH = path.resolve(__dirname, 'test-files');
 
 const getFileContent = async (file) => {
   const stream = fs.createReadStream(path.resolve(SOURCE_DIRECTORY_PATH, file.name));
@@ -24,7 +24,7 @@ const getFileContent = async (file) => {
   for (const file of files) {
     if (file.name.split('.').at(-1) === 'css') { //1 symbol as min filename and 1 symbol for dot
       const content = await getFileContent(file);
-      const result = appendFile(targetFilePath, content);
+      const result = await appendFile(targetFilePath, content + '\n');
     }
   }
 })();
