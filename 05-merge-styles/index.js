@@ -1,4 +1,4 @@
-const {readdir, appendFile} = require('fs/promises');
+const {readdir, appendFile, rm, mkdir} = require('fs/promises');
 const path = require('path');
 const fs = require("fs");
 
@@ -18,11 +18,13 @@ const getFileContent = async (file) => {
 };
 
 (async () => {
+  const targetFilePath = path.resolve(TARGET_DIRECTORY_PATH, 'bundle.css');
+  await rm(targetFilePath, {force: true});
   const files = await readdir(SOURCE_DIRECTORY_PATH, {withFileTypes: true});
   for (const file of files) {
     if (file.name.indexOf('css') > 1) { //1 symbol as min filename and 1 symbol for dot
       const content = await getFileContent(file);
-      const result = appendFile(path.resolve(TARGET_DIRECTORY_PATH, 'bundle.css'), content);
+      const result = appendFile(targetFilePath, content);
     }
   }
 })();
