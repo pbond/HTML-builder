@@ -22,7 +22,7 @@ const getFileContent = async (file) => {
   await rm(targetFilePath, {force: true});
   const files = await readdir(SOURCE_DIRECTORY_PATH, {withFileTypes: true});
   for (const file of files) {
-    if (file.name.indexOf('css') > 1) { //1 symbol as min filename and 1 symbol for dot
+    if (file.name.split('.').at(-1) === 'css') { //1 symbol as min filename and 1 symbol for dot
       const content = await getFileContent(file);
       const result = appendFile(targetFilePath, content);
     }
