@@ -30,7 +30,7 @@ const getFileContent = async (filePath) => {
 const mergeStyles = async () => {
   const files = await readdir(SOURCE_DIRECTORY_STYLES_PATH, {withFileTypes: true});
   for (const file of files) {
-    if (file.name.indexOf('css') > 1) { //1 symbol as min filename and 1 symbol for dot
+    if (file.name.split('.').at(-1) === 'css') { //1 symbol as min filename and 1 symbol for dot
       const content = await getFileContent(path.resolve(SOURCE_DIRECTORY_STYLES_PATH, file.name));
       const result = appendFile(path.resolve(TARGET_DIRECTORY_PATH, 'style.css'), content + '\n');
     }
